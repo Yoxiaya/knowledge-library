@@ -19,10 +19,10 @@ export default function DebounceDemo() {
         <div>
             <input
                 placeholder="输入触发 debounce"
-                className="border p-2 rounded"
+                className="border p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                 onChange={(e) => handleInput(e.target.value)}
             />
-            <p className="mt-3">防抖结果：{value}</p>
+            <p className="mt-3 text-gray-700">防抖结果：{value}</p>
         </div>
     )
 }
