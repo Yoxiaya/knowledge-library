@@ -1,24 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
-
-const menu = [
-    {
-        category: 'JavaScript',
-        items: [
-            { name: '防抖', path: '/js/debounce' },
-            { name: '节流', path: '/js/throttle' },
-            { name: '深拷贝', path: '/js/deepclone' },
-        ],
-    },
-    {
-        category: 'Browser',
-        items: [{ name: 'Event Loop', path: '/browser/event-loop' }],
-    },
-    {
-        category: 'React',
-        items: [{ name: 'useEffect Demo', path: '/react/use-effect' }],
-    },
-]
+import { menu } from '@/config/silderBarMenu'
 
 export default function Sidebar() {
     const [collapsed, setCollapsed] = useState(false)

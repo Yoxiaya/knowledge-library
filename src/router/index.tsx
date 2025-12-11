@@ -7,6 +7,9 @@ import Debounce from '@/examples/js/debounce'
 import DebounceDoc from '@/docs/js/debounce.mdx'
 import Throttle from '@/examples/js/throttle'
 import ThrottleDoc from '@/docs/js/throttle.mdx'
+import PromiseHandwrittenDemo from '@/examples/js/promise-handwritten'
+import PromiseBasic from '@/examples/js/promise-basic'
+import PromiseDoc from '@/docs/js/promise.mdx'
 
 import NotFound from '@/pages/NotFound'
 
@@ -22,6 +25,14 @@ export const router = createBrowserRouter([
             {
                 path: 'js/throttle',
                 element: <ExampleViewer demo={<Throttle />} doc={<ThrottleDoc />} />,
+            },
+            {
+                path: 'js/promise',
+                element: <ExampleViewer demo={<PromiseBasic />} doc={<PromiseDoc />} />,
+            },
+            {
+                path: 'js/promise-handwritten',
+                element: <ExampleViewer demo={<PromiseHandwrittenDemo />} doc={<PromiseDoc />} />,
             },
         ],
     },

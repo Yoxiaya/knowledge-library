@@ -1,0 +1,57 @@
+# Promise 基础案例
+
+## Promise 是什么？
+
+Promise 是一个用于处理异步的对象，有三个状态：
+
+- pending：进行中
+- fulfilled：成功
+- rejected：失败
+
+---
+
+## Promise 常见用法
+
+### 1. then / catch / finally
+
+### 2. Promise.all / race / allSettled / any
+
+### 3. async / await（语法糖）
+
+---
+
+## Demo 说明
+
+页面提供：
+
+- 一个“成功请求”按钮（resolve）
+- 一个“失败请求”按钮（reject）
+- 显示加载状态与结果
+
+用于理解 Promise 的执行流程与状态变化。
+
+---
+
+# 手写 Promise 简化版
+
+手写 Promise 核心点：
+
+1. 维护三个状态：pending / fulfilled / rejected
+2. 状态只能变一次
+3. then 需要支持 pending 阶段的回调收集
+4. 触发 resolve/reject 时执行对应回调队列
+
+本项目内提供了一个简化版的 MyPromise 实现，用于理解原理。
+
+---
+
+# 扩展
+
+你可以继续实现：
+
+- 链式调用
+- then 返回新 Promise
+- 处理异步 then
+- 实现 Promise.all / race
+
+都是非常高频的前端面试题。
