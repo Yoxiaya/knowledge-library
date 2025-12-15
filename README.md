@@ -1,73 +1,189 @@
-# React + TypeScript + Vite
+# 知识库项目
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+一个基于 React + TypeScript + Vite 构建的交互式前端知识库，提供 JavaScript、Browser、React 等相关概念的文档和交互式示例。
 
-Currently, two official plugins are available:
+## 🌟 功能特性
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📚 **丰富的文档**：详细讲解各种前端概念和实现原理
+- 🎯 **交互式示例**：提供可运行的代码示例，直观展示概念应用
+- 🔍 **分类导航**：按技术领域分类，方便查找和学习
+- 🎨 **现代界面**：采用现代化 UI 设计，提供良好的学习体验
+- 🔧 **TypeScript 支持**：提供类型安全的代码示例和实现
 
-## React Compiler
+## 🛠️ 技术栈
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **前端框架**：React 19
+- **编程语言**：TypeScript
+- **构建工具**：Vite 7
+- **样式方案**：Tailwind CSS
+- **UI 组件**：自定义组件 + Radix UI
+- **路由管理**：React Router v7
+- **文档格式**：MDX
+- **代码规范**：ESLint + Prettier
 
-## Expanding the ESLint configuration
+## 📁 项目结构
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+├── public/                 # 静态资源
+├── src/
+│   ├── assets/            # 资源文件
+│   │   └── picture/       # 图片资源
+│   ├── components/        # 组件
+│   │   ├── layout/        # 布局组件
+│   │   └── ui/            # UI 组件
+│   ├── config/            # 配置文件
+│   │   └── silderBarMenu.ts  # 侧边栏菜单配置
+│   ├── docs/              # 文档内容
+│   │   └── js/            # JavaScript 文档
+│   ├── examples/          # 示例代码
+│   │   └── js/            # JavaScript 示例
+│   ├── lib/               # 工具库
+│   ├── pages/             # 页面组件
+│   ├── router/            # 路由配置
+│   ├── utils/             # 工具函数
+│   ├── declarations.d.ts  # 类型声明
+│   ├── hooks.ts           # 自定义 Hooks
+│   ├── index.css          # 全局样式
+│   └── main.tsx           # 入口文件
+├── .gitignore             # Git 忽略文件
+├── .prettierrc            # Prettier 配置
+├── components.json        # 组件配置
+├── eslint.config.js       # ESLint 配置
+├── index.html             # HTML 模板
+├── package-lock.json      # 依赖锁定文件
+├── package.json           # 项目配置和依赖
+├── postcss.config.js      # PostCSS 配置
+├── tailwind.config.js     # Tailwind 配置
+├── tsconfig.app.json      # TypeScript 应用配置
+├── tsconfig.json          # TypeScript 基础配置
+├── tsconfig.node.json     # TypeScript Node 配置
+└── vite.config.ts         # Vite 配置
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 快速开始
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 安装依赖
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+### 启动开发服务器
+
+```bash
+npm run dev
+```
+
+### 构建生产版本
+
+```bash
+npm run build
+```
+
+### 预览生产版本
+
+```bash
+npm run preview
+```
+
+### 代码规范检查
+
+```bash
+npm run lint
+```
+
+## 📖 使用指南
+
+### 现有内容
+
+目前项目包含以下内容：
+
+#### JavaScript
+
+- **防抖 (Debounce)**：了解防抖原理和实现
+- **节流 (Throttle)**：了解节流原理和实现
+- **Promise**：Promise 基本用法和原理
+- **Promise 手写实现**：手动实现 Promise，深入理解其原理
+
+#### Browser
+
+- **Event Loop**：了解浏览器事件循环机制
+
+#### React
+
+- **useEffect Demo**：React useEffect Hook 的使用示例
+
+### 导航结构
+
+项目采用侧边栏导航，按技术领域分类组织内容：
+
+- **JavaScript**
+    - 防抖
+    - 节流
+    - 深拷贝
+    - Promise
+    - Promise 手写
+
+- **Browser**
+    - Event Loop
+
+- **React**
+    - useEffect Demo
+
+## 🔧 开发指南
+
+### 添加新内容
+
+1. **创建示例代码**：在 `src/examples/[category]/` 目录下创建示例组件
+2. **编写文档**：在 `src/docs/[category]/` 目录下创建 MDX 文档
+3. **配置路由**：在 `src/router/index.tsx` 中添加新路由
+4. **更新菜单**：在 `src/config/silderBarMenu.ts` 中添加菜单项
+
+### 组件结构
+
+- **Layout**：应用布局组件，包含侧边栏和主内容区
+- **Sidebar**：侧边栏导航组件
+- **ExampleViewer**：示例查看器，展示示例代码和文档
+- **UI 组件**：基础 UI 组件，如按钮、卡片、导航菜单等
+
+### 路由配置
+
+路由采用 React Router v7 的 createBrowserRouter API 配置，支持嵌套路由和动态导入。
+
+## 🎨 样式方案
+
+项目使用 Tailwind CSS 进行样式管理，结合自定义组件实现统一的 UI 设计。
+
+## 📝 代码规范
+
+项目使用 ESLint 和 Prettier 保证代码质量和一致性：
+
+- **ESLint**：检查代码语法和潜在问题
+- **Prettier**：格式化代码，保持一致的代码风格
+
+## 🤝 贡献指南
+
+欢迎提交 Issue 和 Pull Request 来完善项目内容！
+
+### 贡献步骤
+
+1. Fork 项目
+2. 创建特性分支
+3. 提交更改
+4. 推送到分支
+5. 创建 Pull Request
+
+## 📄 许可证
+
+MIT License
+
+## 📞 联系方式
+
+如有问题或建议，欢迎通过以下方式联系：
+
+- 提交 Issue：[项目 GitHub Issues](https://github.com/your-username/knowledge-library/issues)
+- 发送邮件：your-email@example.com
+
+---
+
+感谢使用知识库项目！希望它能帮助你更好地学习和理解前端技术。
