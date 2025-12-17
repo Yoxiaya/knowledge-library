@@ -19,6 +19,9 @@ export default defineConfig({
         },
     },
     build: {
+        outDir: 'dist',
+
+        copyPublicDir: true,
         rollupOptions: {
             output: {
                 // 确保 chunk 文件有正确的扩展名
