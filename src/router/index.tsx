@@ -14,6 +14,8 @@ import EventLoopDemo from '@/examples/browser/event-loop'
 import EventLoopDoc from '@/docs/browser/eventloop.mdx'
 import ReduxExample from '@/examples/react/redux'
 import ReduxDoc from '@/docs/react/redux.mdx'
+import DragSort from '@/examples/case/drag-sort'
+import DragSortDoc from '@/docs/case/drag-sort.mdx'
 
 import NotFound from '@/pages/NotFound'
 
@@ -45,6 +47,10 @@ export const router = createBrowserRouter([
             {
                 path: 'react/redux',
                 element: <ExampleViewer demo={<ReduxExample />} doc={<ReduxDoc />} />,
+            },
+            {
+                path: 'case/1',
+                element: <ExampleViewer demo={<DragSort />} doc={<DragSortDoc />} />,
             },
         ],
     },

@@ -20,4 +20,8 @@ export const menu = [
             { name: 'Redux', path: '/react/redux' },
         ],
     },
+    {
+        category: '案例',
+        items: [{ name: '拖拽排序', path: '/case/1' }],
+    },
 ]
