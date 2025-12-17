@@ -10,6 +10,10 @@ import ThrottleDoc from '@/docs/js/throttle.mdx'
 import PromiseHandwrittenDemo from '@/examples/js/promise-handwritten'
 import PromiseBasic from '@/examples/js/promise-basic'
 import PromiseDoc from '@/docs/js/promise.mdx'
+import EventLoopDemo from '@/examples/browser/event-loop'
+import EventLoopDoc from '@/docs/browser/eventloop.mdx'
+import ReduxExample from '@/examples/react/redux'
+import ReduxDoc from '@/docs/react/redux.mdx'
 
 import NotFound from '@/pages/NotFound'
 
@@ -33,6 +37,14 @@ export const router = createBrowserRouter([
             {
                 path: 'js/promise-handwritten',
                 element: <ExampleViewer demo={<PromiseHandwrittenDemo />} doc={<PromiseDoc />} />,
+            },
+            {
+                path: 'browser/event-loop',
+                element: <ExampleViewer demo={<EventLoopDemo />} doc={<EventLoopDoc />} />,
+            },
+            {
+                path: 'react/redux',
+                element: <ExampleViewer demo={<ReduxExample />} doc={<ReduxDoc />} />,
             },
         ],
     },

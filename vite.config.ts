@@ -3,10 +3,11 @@ import path from 'path'
 import mdx from '@mdx-js/rollup'
 import react from '@vitejs/plugin-react-swc'
 import remarkGfm from 'remark-gfm'
+// @ts-ignore
+import remarkPrism from 'remark-prism'
 
-// https://vite.dev/config/
 export default defineConfig({
-    plugins: [mdx({ remarkPlugins: [remarkGfm] }), react()],
+    plugins: [mdx({ remarkPlugins: [remarkGfm, remarkPrism] }), react()],
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src'),

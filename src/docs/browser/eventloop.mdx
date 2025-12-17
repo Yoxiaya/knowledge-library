@@ -1,0 +1,54 @@
+# JavaScript EventLoop 事件循环
+
+## 1. 简介
+
+JavaScript 是单线程的，这意味着 JavaScript 在同一时间只能执行一个任务。然而，JavaScript 通过事件循环（Event Loop）和任务队列（Task Queue）实现异步编程，使得我们可以处理 I/O 操作、定时任务等。
+
+在 JavaScript 中，任务分为两类：
+
+- **宏任务（Macro Tasks）**：包括 `setTimeout`、`setInterval`、I/O 操作等
+- **微任务（Micro Tasks）**：包括 `Promise`、`MutationObserver` 等
+
+## 2. 事件循环原理
+
+JavaScript 的事件循环是如何工作的呢？
+
+1. 执行栈（Call Stack）是执行当前 JavaScript 代码的地方。
+2. 当一个宏任务（如 `setTimeout`）被调用时，它会进入宏任务队列。
+3. 当当前执行栈为空时，事件循环会从宏任务队列取出任务并执行。
+4. 微任务队列中的任务会在宏任务执行之前完成执行。也就是说，**每次事件循环结束之前，微任务都会先执行**。
+
+### 事件循环的顺序：
+
+1. 执行当前栈中的所有同步代码（宏任务）。
+2. 执行所有的微任务（如 Promise 的回调）。
+3. 从宏任务队列中取出下一个宏任务，并执行。
+
+## 3.代码演示
+
+```javascript
+const p = new Promise((resolve) => {
+    console.log(4)
+    resolve(5)
+})
+function func1() {
+    console.log(1)
+}
+function func2() {
+    setTimeout(() => {
+        console.log(2)
+    }, 0)
+    func1()
+    console.log(3)
+    p.then((res) => {
+        console.log(res)
+    }).then(() => {
+        console.log(6)
+    })
+}
+func2()
+```
+
+## 运行结果
+
+413562

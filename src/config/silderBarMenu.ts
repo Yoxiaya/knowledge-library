@@ -15,6 +15,9 @@ export const menu = [
     },
     {
         category: 'React',
-        items: [{ name: 'useEffect Demo', path: '/react/use-effect' }],
+        items: [
+            { name: 'useEffect Demo', path: '/react/use-effect' },
+            { name: 'Redux', path: '/react/redux' },
+        ],
     },
 ]

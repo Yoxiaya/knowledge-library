@@ -182,7 +182,6 @@ MIT License
 如有问题或建议，欢迎通过以下方式联系：
 
 - 提交 Issue：[项目 GitHub Issues](https://github.com/your-username/knowledge-library/issues)
-- 发送邮件：your-email@example.com
 
 ---
 
