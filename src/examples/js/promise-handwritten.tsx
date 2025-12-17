@@ -1,22 +1,22 @@
-import { useState } from 'react'
-import { MyPromise } from '@/utils/myPromise'
+import { useState } from 'react';
+import { MyPromise } from '@/utils/myPromise';
 
 export default function PromiseHandwrittenDemo() {
-    const [log, setLog] = useState('')
+    const [log, setLog] = useState('');
 
     const runPromise = () => {
-        setLog('')
+        setLog('');
 
-        const p = new MyPromise((resolve, reject) => {
+        const p = new MyPromise((resolve) => {
             setTimeout(() => {
-                resolve('手写 Promise 完成！')
-            }, 800)
-        })
+                resolve('手写 Promise 完成！');
+            }, 800);
+        });
 
         p.then((res: any) => {
-            setLog(String(res))
-        })
-    }
+            setLog(String(res));
+        });
+    };
 
     return (
         <div className="p-4 space-y-4">
@@ -28,5 +28,5 @@ export default function PromiseHandwrittenDemo() {
 
             {log && <p className="text-gray-700">结果：{log}</p>}
         </div>
-    )
+    );
 }
