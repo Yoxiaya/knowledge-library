@@ -7,10 +7,11 @@ export const menu = [
             { name: '深拷贝', path: '/js/deepclone' },
             { name: 'Promise', path: '/js/promise' },
             { name: 'Promise 手写', path: '/js/promise-handwritten' },
+            { name: 'this指向', path: '/js/this-arrow' },
         ],
     },
     {
-        category: 'Browser',
+        category: '浏览器',
         items: [{ name: 'Event Loop', path: '/browser/event-loop' }],
     },
     {
@@ -24,4 +25,4 @@ export const menu = [
         category: '案例',
         items: [{ name: '拖拽排序', path: '/case/1' }],
     },
-]
+];

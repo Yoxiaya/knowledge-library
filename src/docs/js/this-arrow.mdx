@@ -1,0 +1,343 @@
+# this指向问题
+
+## 1.基础案例集
+
+### 案例1：全局上下文中的 this
+
+```js
+console.log(this === window); // 浏览器中：true，Node.js中：false
+
+function globalFunc() {
+    console.log(this); // 浏览器中：window
+}
+globalFunc();
+```
+
+### 案例2：对象方法中的 this
+
+```js
+const obj = {
+    name: 'Alice',
+    sayHi() {
+        console.log(this.name); // 'Alice'
+    },
+};
+
+obj.sayHi(); // 正确：Alice
+```
+
+### 案例3：方法赋值导致的 this 丢失
+
+```js
+const obj = {
+    name: 'Alice',
+    sayHi() {
+        console.log(this.name);
+    },
+};
+
+const greet = obj.sayHi;
+greet(); // 错误：undefined（严格模式）或 window.name
+```
+
+### 案例4：嵌套函数中的 this
+
+```js
+const obj = {
+    name: 'Alice',
+    outer() {
+        console.log('outer:', this.name); // 'Alice'
+
+        function inner() {
+            console.log('inner:', this.name); // 错误：undefined（严格模式）
+        }
+        inner();
+    },
+};
+
+obj.outer();
+```
+
+## 2. 箭头函数案例
+
+### 案例5：箭头函数的 this
+
+```js
+const obj = {
+    name: 'Alice',
+    sayHi: () => {
+        console.log(this.name); // 错误：undefined
+    },
+};
+
+obj.sayHi();
+```
+
+### 案例6：箭头函数 vs 普通函数
+
+```js
+const obj = {
+    name: 'Alice',
+    regularFunc: function () {
+        console.log('regular:', this.name); // 'Alice'
+    },
+    arrowFunc: () => {
+        console.log('arrow:', this.name); // 错误：undefined
+    },
+};
+
+obj.regularFunc();
+obj.arrowFunc();
+```
+
+### 案例7：箭头函数在回调中的优势
+
+```js
+const timer = {
+    name: 'Timer',
+    start() {
+        // 普通函数：this 丢失
+        setTimeout(function () {
+            console.log('普通函数:', this.name); // 错误：undefined
+        }, 100);
+
+        // 箭头函数：保留外层 this
+        setTimeout(() => {
+            console.log('箭头函数:', this.name); // 'Timer'
+        }, 200);
+    },
+};
+
+timer.start();
+```
+
+## 3. 构造函数案例
+
+### 案例8：构造函数中的 `this`
+
+```javascript
+function Person(name) {
+    this.name = name;
+    console.log(this); // Person 实例
+}
+
+const alice = new Person('Alice'); // Person {name: 'Alice'}
+console.log(alice.name); // 'Alice'
+```
+
+### 案例9：忘记使用 `new` 关键字
+
+```javascript
+function Person(name) {
+    this.name = name;
+}
+
+const alice = new Person('Alice'); // 正确
+console.log(alice.name); // 'Alice'
+
+const bob = Person('Bob'); // 忘记 new
+console.log(bob); // undefined
+console.log(window.name); // 浏览器中：'Bob'（污染全局）
+```
+
+## 4. 显式绑定案例
+
+### 案例10：`call`, `apply`, `bind` 方法
+
+```javascript
+const obj1 = { name: 'Alice' };
+const obj2 = { name: 'Bob' };
+
+function sayHi(greeting) {
+    console.log(`${greeting}, ${this.name}!`);
+}
+
+// call - 立即调用，参数逐个传递
+sayHi.call(obj1, 'Hello'); // "Hello, Alice!"
+
+// apply - 立即调用，参数数组传递
+sayHi.apply(obj2, ['Hi']); // "Hi, Bob!"
+
+// bind - 创建新函数，稍后调用
+const greetBob = sayHi.bind(obj2, 'Hey');
+greetBob(); // "Hey, Bob!"
+```
+
+### 案例11：`bind` 的永久绑定
+
+```javascript
+const obj = {
+    name: 'Alice',
+    sayHi() {
+        console.log(this.name);
+    },
+};
+
+const boundFunc = obj.sayHi.bind(obj);
+boundFunc(); // 'Alice'（即使从其他地方调用）
+
+const extractedFunc = obj.sayHi;
+extractedFunc(); // 错误：undefined
+
+// bind 无法再次覆盖
+const obj2 = { name: 'Bob' };
+const reboundFunc = boundFunc.bind(obj2);
+reboundFunc(); // 仍然是 'Alice'
+```
+
+## 5. 事件处理案例
+
+### 案例12：DOM 事件中的 `this`
+
+```html
+<button id="btn1">按钮1（传统函数）</button>
+<button id="btn2">按钮2（箭头函数）</button>
+
+<script>
+    const btn1 = document.getElementById('btn1');
+    const btn2 = document.getElementById('btn2');
+
+    // 传统函数：this 指向触发事件的元素
+    btn1.addEventListener('click', function () {
+        console.log(this); // <button id="btn1">...
+        console.log(this.textContent); // "按钮1（传统函数）"
+    });
+
+    // 箭头函数：this 指向定义时的上下文
+    btn2.addEventListener('click', () => {
+        console.log(this); // window（全局上下文）
+        console.log(this.textContent); // undefined
+    });
+</script>
+```
+
+## 6. 类中的 `this` 案例
+
+### 案例13：类方法中的 `this`
+
+```javascript
+class Person {
+    constructor(name) {
+        this.name = name;
+    }
+
+    sayHi() {
+        console.log(`Hello, I'm ${this.name}`);
+    }
+
+    delayedHi() {
+        // 问题：this 丢失
+        setTimeout(function () {
+            console.log(`Delayed: I'm ${this.name}`); // 错误：undefined
+        }, 100);
+
+        // 解决方案1：箭头函数
+        setTimeout(() => {
+            console.log(`Arrow: I'm ${this.name}`); // 正确
+        }, 200);
+
+        // 解决方案2：bind
+        setTimeout(
+            function () {
+                console.log(`Bound: I'm ${this.name}`); // 正确
+            }.bind(this),
+            300,
+        );
+    }
+}
+
+const alice = new Person('Alice');
+alice.sayHi(); // "Hello, I'm Alice"
+alice.delayedHi();
+```
+
+## 7. 综合练习案例
+
+### 案例14：多层嵌套对象中的 `this`
+
+```javascript
+const company = {
+    name: 'TechCorp',
+    departments: {
+        engineering: {
+            team: 'Frontend',
+            getInfo() {
+                console.log(this.team); // 'Frontend'
+                console.log(this.name); // undefined（无法访问外层）
+            },
+        },
+        marketing: {
+            team: 'Digital',
+            getInfo: () => {
+                console.log(this.team); // undefined
+                console.log(this.name); // undefined
+            },
+        },
+    },
+    getCompanyName() {
+        console.log(this.name); // 'TechCorp'
+    },
+};
+
+company.departments.engineering.getInfo();
+company.departments.marketing.getInfo();
+company.getCompanyName();
+```
+
+### 案例15：回调函数中的 `this`
+
+```javascript
+const dataProcessor = {
+    data: [1, 2, 3, 4, 5],
+    multiplier: 2,
+
+    processWithProblem() {
+        // 问题：回调函数中的 this 丢失
+        return this.data.map(function (item) {
+            return item * this.multiplier; // 错误：this.multiplier 是 undefined
+        });
+    },
+
+    processSolutions() {
+        // 解决方案1：保存 this 引用
+        const self = this;
+        return this.data.map(function (item) {
+            return item * self.multiplier;
+        });
+
+        // 解决方案2：使用箭头函数
+        // return this.data.map(item => item * this.multiplier);
+
+        // 解决方案3：使用 bind
+        // return this.data.map(function(item) {
+        //   return item * this.multiplier;
+        // }.bind(this));
+
+        // 解决方案4：map 的第二个参数
+        // return this.data.map(function(item) {
+        //   return item * this.multiplier;
+        // }, this);
+    },
+};
+
+console.log(dataProcessor.processSolutions()); // [2, 4, 6, 8, 10]
+```
+
+## 8. 解决方案总结
+
+| 场景         | 问题                     | 解决方案                       |
+| ------------ | ------------------------ | ------------------------------ |
+| 对象方法赋值 | `this` 丢失              | 使用 `bind` 绑定               |
+| 嵌套函数     | 内部函数 `this` 指向全局 | 使用箭头函数或保存 `this` 引用 |
+| 回调函数     | `this` 指向错误          | 使用箭头函数或显式绑定         |
+| 事件处理     | `this` 指向元素          | 根据需求选择传统函数或箭头函数 |
+| 类方法       | 方法中的回调丢失 `this`  | 使用箭头函数或绑定             |
+
+## 练习建议
+
+1. 复制上面的代码到浏览器控制台或Node.js环境中运行
+2. 尝试预测每个案例的输出，然后验证你的理解
+3. 修改代码，测试不同情况下的 `this` 指向
+4. 在实际项目中遇到 `this` 问题时，对照这些案例分析
+
+记住 `this` 的黄金规则：**`this` 指向调用函数的对象，而不是定义函数的对象**。箭头函数是例外，它们的 `this` 从定义时的外层作用域继承。
